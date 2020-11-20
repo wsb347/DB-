@@ -1,4 +1,3 @@
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,42 +8,42 @@ import java.util.Scanner;
 public class java1118 {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
-		// // =======================================DB
-		// ¼¼ÆÃ=========================================
-
-		// µå¶óÀÌ¹ö Á¤º¸
+		// =======================================DB
+		// ì„¸íŒ…=========================================
+		
+		// ë“œë¼ì´ë²„ ì •ë³´
 		String driver = "com.mysql.cj.jdbc.Driver";
-		// dbms ÁÖ¼Ò
+		// dbms ì£¼ì†Œ
 		String url = "jdbc:mysql://localhost:3306/t1?serverTimezone=UTC";
-		
-		// Áı ¹öÀü
-		// »ç¿ëÀÚ °èÁ¤
-		String user = "root";
-		// »ç¿ëÀÚ ºñ¹Ğ¹øÈ£
-		String pass = "";
+	
+//		// ì§‘ ë²„ì „
+//		// ì‚¬ìš©ì ê³„ì •
+//		String user = "root";
+//		// ì‚¬ìš©ì ë¹„ë°€ë²ˆí˜¸
+//		String pass = "";
 
-//		// ÇĞ¿ø¹öÀü
-//		// »ç¿ëÀÚ °èÁ¤
-//		String user = "sbsst";
-//		// »ç¿ëÀÚ ºñ¹Ğ¹øÈ£
-//		String pass = "123414";
-		
-		Class.forName(driver); // Driver ¼¼ÆÃ
-		Connection conn = DriverManager.getConnection(url, user, pass); // DBMS ¼±ÅÃ -> ´ã´çÀÚ(Connection) ºÎ¿©¹ŞÀ½
+		// í•™ì›ë²„ì „
+		// ì‚¬ìš©ì ê³„ì •
+		String user = "sbsst";
+		// ì‚¬ìš©ì ë¹„ë°€ë²ˆí˜¸
+		String pass = "sbs123414";
 
+		Class.forName(driver); // Driver ì„¸íŒ…
+		Connection conn = DriverManager.getConnection(url, user, pass); // DBMS ì„ íƒ -> ë‹´ë‹¹ì(Connection) ë¶€ì—¬ë°›ìŒ
+		
 		Scanner sc = new Scanner(System.in);
 		while (true) {
 
-			System.out.print("¸í·É¾î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä : ");
+			System.out.print("ëª…ë ¹ì–´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš” : ");
 			String cmd = sc.nextLine();
 
 			if (cmd.equals("list")) {
 				String sql = "SELECT * FROM article";
 
-				PreparedStatement pstmt = conn.prepareStatement(sql); // PreparedStatment ÅëÇØ¼­ sql ¼¼ÆÃ
+				PreparedStatement pstmt = conn.prepareStatement(sql); // PreparedStatment í†µí•´ì„œ sql ì„¸íŒ…
 
-				ResultSet rs = pstmt.executeQuery(); // Á¶È¸ °á°ú°¡ ÀÖ´Â °æ¿ì
-				// pstmt.executeUpdate(); // Á¶È¸ °á°ú°¡ ¾ø´Â °æ¿ì
+				ResultSet rs = pstmt.executeQuery(); // ì¡°íšŒ ê²°ê³¼ê°€ ìˆëŠ” ê²½ìš°
+				// pstmt.executeUpdate(); // ì¡°íšŒ ê²°ê³¼ê°€ ì—†ëŠ” ê²½ìš°
 
 				while (rs.next()) {
 					String title = rs.getString("title");
@@ -57,13 +56,13 @@ public class java1118 {
 			}
 
 			if (cmd.equals("add")) {
-				System.out.print("Á¦¸ñ : ");
+				System.out.print("ì œëª© : ");
 				String title = sc.nextLine();
 
-				System.out.print("³»¿ë : ");
+				System.out.print("ë‚´ìš© : ");
 				String body = sc.nextLine();
 
-				String sql = "INSERT INTO article SET title = ?, `body` = ?, nickname = 'È«±æµ¿', hit = 10";
+				String sql = "INSERT INTO article SET title = ?, `body` = ?, nickname = 'í™ê¸¸ë™', hit = 10";
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 
 				pstmt.setString(1, title);
@@ -72,7 +71,7 @@ public class java1118 {
 			}
 
 			if (cmd.equals("update")) {
-				System.out.print("¼öÁ¤ÇÒ °Ô½Ã¹° ¼±ÅÃ : ");
+				System.out.print("ìˆ˜ì •í•  ê²Œì‹œë¬¼ ì„ íƒ : ");
 				int id = Integer.parseInt(sc.nextLine());
 
 				String sql2 = "SELECT * FROM article WHERE id = ?";
@@ -82,10 +81,10 @@ public class java1118 {
 				ResultSet rs = pstmt2.executeQuery();
 
 				if (rs.next()) {
-					System.out.print("Á¦¸ñ : ");
+					System.out.print("ì œëª© : ");
 					String title = sc.nextLine();
 
-					System.out.print("³»¿ë : ");
+					System.out.print("ë‚´ìš© : ");
 					String body = sc.nextLine();
 
 					String sql = "UPDATE article SET title = ?, `body` = ? WHERE id = ?";
@@ -95,15 +94,15 @@ public class java1118 {
 					pstmt.setString(2, body);
 					pstmt.setInt(3, id);
 					pstmt.executeUpdate();
-					System.out.println(id + "¹ø °Ô½Ã¹°ÀÌ ¼öÁ¤µÇ¾ú½À´Ï´Ù.");
+					System.out.println(id + "ë²ˆ ê²Œì‹œë¬¼ì´ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				} else {
-					System.out.println("¾ø´Â °Ô½Ã¹° ÀÔ´Ï´Ù.");
+					System.out.println("ì—†ëŠ” ê²Œì‹œë¬¼ ì…ë‹ˆë‹¤.");
 				}
 
 			}
 
 			if (cmd.equals("read")) {
-				System.out.print("Á¶È¸ÇÒ °Ô½Ã¹° ¼±ÅÃ : ");
+				System.out.print("ì¡°íšŒí•  ê²Œì‹œë¬¼ ì„ íƒ : ");
 				int id = Integer.parseInt(sc.nextLine());
 
 				String sql2 = "SELECT * FROM article WHERE id = ?";
@@ -117,17 +116,17 @@ public class java1118 {
 					String title = rs.getString("title");
 					String body = rs.getString("body");
 
-					System.out.println("¹øÈ£ : " + id2);
-					System.out.println("Á¦¸ñ : " + title);
-					System.out.println("³»¿ë : " + body);
+					System.out.println("ë²ˆí˜¸ : " + id2);
+					System.out.println("ì œëª© : " + title);
+					System.out.println("ë‚´ìš© : " + body);
 				} else {
-					System.out.println("¾ø´Â °Ô½Ã¹° ÀÔ´Ï´Ù.");
+					System.out.println("ì—†ëŠ” ê²Œì‹œë¬¼ ì…ë‹ˆë‹¤.");
 				}
 
 			}
 
 			if (cmd.equals("delete")) {
-				System.out.print("»èÁ¦ÇÒ °Ô½Ã¹° ¼±ÅÃ : ");
+				System.out.print("ì‚­ì œí•  ê²Œì‹œë¬¼ ì„ íƒ : ");
 				int id = Integer.parseInt(sc.nextLine());
 
 				String sql2 = "SELECT * FROM article WHERE id = ?";
@@ -142,9 +141,9 @@ public class java1118 {
 					pstmt.setInt(1, id);
 					pstmt.executeUpdate();
 
-					System.out.println(id + "¹ø °Ô½Ã¹°ÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.");
+					System.out.println(id + "ë²ˆ ê²Œì‹œë¬¼ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
 				} else {
-					System.out.println("¾ø´Â °Ô½Ã¹° ÀÔ´Ï´Ù.");
+					System.out.println("ì—†ëŠ” ê²Œì‹œë¬¼ ì…ë‹ˆë‹¤.");
 				}
 
 			}
