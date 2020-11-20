@@ -134,7 +134,7 @@ public class test {
 
 					ResultSet rs6 = pstmt6.executeQuery();
 					
-					if (rs.next()) {
+					if (rs6.next()) {
 						int id2 = rs6.getInt("id");
 						String title = rs6.getString("title");
 						String body = rs6.getString("body");
