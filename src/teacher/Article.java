@@ -1,5 +1,4 @@
 package teacher;
-
 public class Article {
 
 	private int id;
