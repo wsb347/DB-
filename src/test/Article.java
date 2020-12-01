@@ -1,4 +1,4 @@
-package teacher;
+package test;
 public class Article {
 
 	private int id;
