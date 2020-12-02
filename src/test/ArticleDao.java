@@ -20,9 +20,9 @@ public class ArticleDao {
 		return db.updateQuery(sql, aid);
 	}
 	
-	public int insertArticle(String title, String body) {
-		String sql = "insert into article set title = ?, body = ?, nickname = '익명', regDate = NOW(), hit = 0";
-		return db.updateQuery(sql, title, body);
+	public int insertArticle(String title, String body, String nickname) {
+		String sql = "insert into article set title = ?, body = ?, nickname = ?, regDate = NOW(), hit = 0";
+		return db.updateQuery(sql, title, body, nickname);
 	}
 	
 	public Article getArticleById(int aid) {
@@ -30,13 +30,38 @@ public class ArticleDao {
 		return db.getRow(sql, new ArticleRowMapper(), aid);
 	}
 	
-	public int insertReply(int aid, String body) {
-		String sql = "insert into reply set aid = ?, body = ?, writer = '익명', regDate = NOW()";
-		return db.updateQuery(sql, aid, body);
+	public int insertReply(int aid, String body, String writer) {
+		String sql = "insert into reply set aid = ?, body = ?, writer = ?, regDate = NOW()";
+		return db.updateQuery(sql, aid, body, writer);
 	}
 	
 	public ArrayList<Reply> getReplyByArticleId(int id) {
 		String sql = "select * from reply where aid = ?";
 		return db.getRows(sql, new ReplyRowMapper(), id);
+	}
+	
+	public int insertMember(String id, String pw, String nickname) {
+		String sql = "insert into member set id = ?, pw = ?, nickname = ?";
+		return db.updateQuery(sql, id, pw, nickname);
+	}
+	
+	public Member CheckMemberById(String id) {
+		String sql = "select * from member where id = ?";
+		return db.getRow(sql, new MemberRowMapper(), id);
+	}
+	
+	public Member CheckMemberByNickName(String nickName) {
+		String sql = "select * from member where nickname = ?";
+		return db.getRow(sql, new MemberRowMapper(), nickName);
+	}
+	
+	public Member GetMemberByIdAndPw(String id, String pw) {
+		String sql = "select * from member where id = ? and pw = ?";
+		return db.getRow(sql, new MemberRowMapper(), id, pw);
+	}
+	
+	public ArrayList<Member> getReplyByLogin(String id) {
+		String sql = "select * from member where id = ?";
+		return db.getRows(sql, new MemberRowMapper(), id);
 	}
 }

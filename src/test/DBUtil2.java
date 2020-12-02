@@ -9,17 +9,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 public class DBUtil2 {
 	// 드라이버 정보
 	String driver = "com.mysql.cj.jdbc.Driver";
 	// dbms 주소p
 	String url = "jdbc:mysql://localhost:3306/t1?serverTimezone=UTC";
 
+//	// 사용자 계정
+//	String user = "root";
+//	// 사용자 비밀번호
+//	String pass = "";
+
 	// 사용자 계정
-	String user = "root";
+	String user = "sbsst";
 	// 사용자 비밀번호
-	String pass = "";
+	String pass = "sbs123414";
 
 	Connection conn = null;
 
