@@ -2,11 +2,11 @@ package board;
 
 public class DBCode {
 		
-//DROP DATABASE IF EXISTS t;
-//
-//USE t1;
+//DROP DATABASE IF EXISTS t1;
 //
 //CREATE DATABASE t1;
+//
+//USE t1;
 //
 //CREATE TABLE article(
 //id INT(5) PRIMARY KEY AUTO_INCREMENT,

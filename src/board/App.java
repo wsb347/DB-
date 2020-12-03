@@ -10,37 +10,46 @@ import board.member.Member;
 import board.member.MemberDao;
 
 public class App {
-	
+
 	ArticleDao articleDao = new ArticleDao();
 	MemberDao memberDao = new MemberDao();
 	Member loginedMember = null;
 
 	Scanner sc = new Scanner(System.in);
-	
+
 	public void start() {
 		while (true) {
 			inputCommmand();
-			
+
 			String cmd = sc.nextLine();
-			
-			if (cmd.equals("list")) {
+
+			if (cmd.equals("article list")) {
 				articleList();
-			} else if (cmd.equals("update")) {
+			} else if (cmd.equals("article update")) {
 				articleUpdate();
-			} else if (cmd.equals("delete")) {
+			} else if (cmd.equals("article delete")) {
 				articleDelete();
-			} else if (cmd.equals("add")) {
+			} else if (cmd.equals("article add")) {
 				articleAdd();
-			} else if (cmd.equals("read")) {
+			} else if (cmd.equals("article read")) {
 				articleRead();
-			} else if (cmd.equals("signup")) {
+			} else if (cmd.equals("member signup")) {
 				memberSignup();
-			} else if (cmd.equals("login")) {
+			} else if (cmd.equals("member login")) {
 				memberLogin();
+			} else if (cmd.equals("member logout")) {
+//				memberLogout();
+			} else if (cmd.equals("help")) {
+				cmdHelp();
 			}
 		}
 	}
-	
+
+	private void cmdHelp() {
+		System.out.println("article [add: 게시물 추가 / list : 게시물 목록 조회 /\nread : 게시물 조회 / search : 검색]");
+		System.out.println("member [signup : 회원가입 / signin : 로그인 /\nfindpass : 비밀번호 찾기 / findid : 아이디 찾기 /\nlogout : 로그아웃 / myinfo : 나의 정보 확인및 수정]");
+	}
+
 	private void memberLogin() {
 		System.out.print("아이디를 입력해주세요 : ");
 		String id = sc.nextLine();
@@ -87,7 +96,7 @@ public class App {
 			int aid = Integer.parseInt(sc.nextLine());
 
 			Article article = articleDao.getArticleById(aid);
-
+			System.out.println("a");
 			if (article == null) {
 				System.out.println("없는 게시물입니다.");
 			} else {
@@ -105,7 +114,7 @@ public class App {
 						ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
 						PrintArticle(article, replies2);
 					} else if (dcmd == 2) {
-						
+						articleDao.PlusSetLikebyArticle(article.getId());
 					} else {
 						break;
 					}
@@ -148,15 +157,17 @@ public class App {
 
 	private void articleList() {
 		ArrayList<Article> articles = articleDao.getArticles();
-		
+
 		for (int i = 0; i < articles.size(); i++) {
-			System.out.println("번호 : " + articles.get(i).getId());
-			System.out.println("제목 : " + articles.get(i).getTitle());
-			System.out.println("작성자 : " + articles.get(i).getNickname());
-			System.out.println("등록날짜 : " + articles.get(i).getRegDate());
+			Article article = articles.get(i);
+			
+			System.out.println("번호 : " + article.getId());
+			System.out.println("제목 : " + article.getTitle());
+			System.out.println("작성자 : " + article.getNickname());
+			System.out.println("등록날짜 : " + article.getRegDate());
 			System.out.println("----------------------------------");
 		}
-		
+
 	}
 
 	private void inputCommmand() {
@@ -174,6 +185,7 @@ public class App {
 		System.out.println("작성자 : " + article.getNickname());
 		System.out.println("등록날짜 : " + article.getRegDate());
 		System.out.println("조회수 : " + article.getHit());
+		System.out.println("좋아요 : " + article.getLike());
 		System.out.println("======== 댓글 =======");
 		for (int i = 0; i < replies.size(); i++) {
 			System.out.println("내용 : " + replies.get(i).getBody());
