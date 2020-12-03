@@ -11,10 +11,11 @@ public class DBCode {
 //CREATE TABLE article(
 //id INT(5) PRIMARY KEY AUTO_INCREMENT,
 //title CHAR(50) NOT NULL,
-//nickname CHAR(50),
 //`body` TEXT NOT NULL,
+//nickname CHAR(50),
 //regDate DATETIME,
-//hit INT(5) NOT NULL
+//hit INT(5) NOT NULL,
+//`like` INT(5) NOT NULL
 //);
 //
 //CREATE TABLE reply(
