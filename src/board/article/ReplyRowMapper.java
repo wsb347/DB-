@@ -1,7 +1,9 @@
-package test;
+package board.article;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import board.RowMapper;
 
 public class ReplyRowMapper implements RowMapper<Reply>{
 
@@ -19,7 +21,7 @@ public class ReplyRowMapper implements RowMapper<Reply>{
 		reply.setBody(body);
 		reply.setWriter(writer);
 		reply.setRegDate(regDate);
-
+		
 		return reply;
 	}
 

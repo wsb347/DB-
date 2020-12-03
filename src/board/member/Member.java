@@ -1,4 +1,4 @@
-package test;
+package board.member;
 
 public class Member {
 	private int mid;

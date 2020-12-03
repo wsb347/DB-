@@ -1,4 +1,4 @@
-package test;
+package board.article;
 public class Article {
 
 	private int id;
@@ -20,7 +20,7 @@ public class Article {
 		this.regDate = regDate;
 		this.hit = hit;
 	}
-
+	
 	public int getId() {
 		return id;
 	}

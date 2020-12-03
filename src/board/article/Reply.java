@@ -1,13 +1,13 @@
-package test;
+package board.article;
 
 public class Reply {
 
-	int id;
-	int parentId;
-	String body;
-	String writer;
-	String regDate;
-	
+	private int id;
+	private int parentId;
+	private String body;
+	private String writer;
+	private String regDate;
+
 	public Reply() {
 		
 	}
@@ -20,7 +20,7 @@ public class Reply {
 		this.writer = writer;
 		this.regDate = regDate;
 	}
-	
+
 	public int getId() {
 		return id;
 	}

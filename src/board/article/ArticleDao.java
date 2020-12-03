@@ -1,5 +1,9 @@
-package test;
+package board.article;
 import java.util.ArrayList;
+
+import board.DBUtil2;
+import board.member.Member;
+import board.member.MemberRowMapper;
 
 public class ArticleDao {
 
@@ -30,6 +34,11 @@ public class ArticleDao {
 		return db.getRow(sql, new ArticleRowMapper(), aid);
 	}
 	
+	public int hitArticle(int aid) {
+		String sql = "INSERT INTO article SET hit = hit+1";
+		return db.updateQuery(sql, aid);
+	}
+	
 	public int insertReply(int aid, String body, String writer) {
 		String sql = "insert into reply set aid = ?, body = ?, writer = ?, regDate = NOW()";
 		return db.updateQuery(sql, aid, body, writer);
@@ -39,29 +48,7 @@ public class ArticleDao {
 		String sql = "select * from reply where aid = ?";
 		return db.getRows(sql, new ReplyRowMapper(), id);
 	}
+		
 	
-	public int insertMember(String id, String pw, String nickname) {
-		String sql = "insert into member set id = ?, pw = ?, nickname = ?";
-		return db.updateQuery(sql, id, pw, nickname);
-	}
 	
-	public Member CheckMemberById(String id) {
-		String sql = "select * from member where id = ?";
-		return db.getRow(sql, new MemberRowMapper(), id);
-	}
-	
-	public Member CheckMemberByNickName(String nickName) {
-		String sql = "select * from member where nickname = ?";
-		return db.getRow(sql, new MemberRowMapper(), nickName);
-	}
-	
-	public Member GetMemberByIdAndPw(String id, String pw) {
-		String sql = "select * from member where id = ? and pw = ?";
-		return db.getRow(sql, new MemberRowMapper(), id, pw);
-	}
-	
-	public ArrayList<Member> getReplyByLogin(String id) {
-		String sql = "select * from member where id = ?";
-		return db.getRows(sql, new MemberRowMapper(), id);
-	}
 }
