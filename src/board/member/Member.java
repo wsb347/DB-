@@ -5,7 +5,16 @@ public class Member {
 	private String id;
 	private String pw;
 	private String nickname;
+	private int checkNo;
 	
+	public int getCheckNo() {
+		return checkNo;
+	}
+
+	public void setCheckNo(int checkNo) {
+		this.checkNo = checkNo;
+	}
+
 	public int getMid() {
 		return mid;
 	}

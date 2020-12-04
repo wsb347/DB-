@@ -49,6 +49,12 @@ public class ArticleDao {
 		return db.updateQuery(sql, aid);
 	}
 	
+	public Article SearchArticleByTitle(String title) {
+		String sql = "SELECT * FROM article WHERE title LIKE CONCAT_WS(?,'%', '%')";
+		return db.getRow(sql, new ArticleRowMapper(), title);
+	}
+	
+	
 	public int insertReply(int aid, String body, String writer) {
 		String sql = "insert into reply set aid = ?, `body` = ?, writer = ?, regDate = NOW()";
 		return db.updateQuery(sql, aid, body, writer);
