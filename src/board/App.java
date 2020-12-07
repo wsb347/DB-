@@ -33,6 +33,8 @@ public class App {
 				articleAdd();
 			} else if (cmd.equals("article read")) {
 				articleRead();
+			} else if (cmd.equals("article sort")) {
+				articleSort();
 			} else if (cmd.equals("article search")) {
 				articleSearch();
 			} else if (cmd.equals("member signup")) {
@@ -47,34 +49,81 @@ public class App {
 		}
 	}
 
-	private void articleSearch() {
-		System.out.println("검색 할 항목을 선택해주세요");
-		System.out.println("(1. 제목, 2. 내용, 3. 제목 + 내용, 4. 작성자)");
-		int targetId = Integer.parseInt(sc.nextLine());
-		if(targetId == 1) {
-			System.out.print("검색 키워드를 입력해주세요 : ");
-			String title = sc.nextLine();
-			Article article = articleDao.SearchArticleByTitle(title);
-			if(article == null) {
-				System.out.println("해당 게시물이 없습니다.");
-			} else {
-				ArrayList<Reply> replies = articleDao.getReplyByArticleId(article.getId());
-				PrintArticle(article, replies);
-			}
-		}
-	 
+	private void articleSort() {
+		String sortFlag = sc.nextLine();
+		String sortType = sc.nextLine();
+		
+		ArrayList<Article> sortedArticles = articleDao.getSortedArticles(sortFlag, sortType);
+
+		printArticles(sortedArticles);
 	}
 
-	private void memberLogout() {
+	public void articleSearch() {
+//		System.out.println("검색 할 항목을 선택해주세요");
+//		System.out.println("(1. 제목, 2. 내용, 3. 제목 + 내용, 4. 작성자)");
+//		int targetId = Integer.parseInt(sc.nextLine());
+//		if(targetId == 1) {
+//			System.out.print("검색 키워드를 입력해주세요 : ");
+//			String title = sc.nextLine();
+//			ArrayList<Article> article = articleDao.SearchArticleByTitle(title);
+//			if(article == null) {
+//				System.out.println("해당 게시물이 없습니다.");
+//			} else {
+//				ArrayList<Article> searchArticle = articleDao.SearchArticleByTitle(title);
+//				PrintArticles(searchArticle);
+//			}
+//		} else if(targetId == 2) {
+//			System.out.print("검색 키워드를 입력해주세요 : ");
+//			String body = sc.nextLine();
+//			ArrayList<Article> article = articleDao.SearchArticleByBody(body);
+//			if(article == null) {
+//				System.out.println("해당 게시물이 없습니다.");
+//			} else {
+//				ArrayList<Article> searchArticle = articleDao.SearchArticleByBody(body);
+//				PrintArticles(searchArticle);
+//			}
+//		} else if(targetId == 3) {
+//			System.out.print("검색 키워드를 입력해주세요 : ");
+//			String body = sc.nextLine();
+//			ArrayList<Article> article = articleDao.SearchArticleByBody(body);
+//			if(article == null) {
+//				System.out.println("해당 게시물이 없습니다.");
+//			} else {
+//				ArrayList<Article> searchArticle = articleDao.SearchArticleByBody(body);
+//				PrintArticles(searchArticle);
+//			}
+//		}
+		
+		System.out.println("검색 할 항목을 선택해주세요");
+		System.out.println("(1. 제목, 2. 내용, 3. 제목 + 내용, 4. 작성자)");
+		int searchFlag = Integer.parseInt(sc.nextLine());
+		
+		System.out.print("검색 키워드를 입력해주세요 : ");
+		String keyword = sc.nextLine();
+		
+		ArrayList<Article> article = articleDao.SearchArticle(searchFlag, keyword);
+		if(article == null) {
+			System.out.println("해당 게시물이 없습니다.");
+		} else {
+			ArrayList<Article> searchArticle = articleDao.SearchArticle(searchFlag, keyword);
+			printArticles(searchArticle);
+		}
+		
+
+		
+	}
+
+	public void memberLogout() {
 		loginedMember = null;
 	}
 
-	private void cmdHelp() {
+	public void cmdHelp() {
 		System.out.println("article [add: 게시물 추가 / list : 게시물 목록 조회 /\nread : 게시물 조회 / search : 검색]");
-		System.out.println("member [signup : 회원가입 / signin : 로그인 /\nfindpass : 비밀번호 찾기 / findid : 아이디 찾기 /\nlogout : 로그아웃 / myinfo : 나의 정보 확인및 수정]");
+		System.out.println(
+				"member [signup : 회원가입 / signin : 로그인 /\nfindpass : 비밀번호 찾기 / findid : 아이디 찾기 /\nlogout : 로그아웃 / myinfo : 나의 정보 확인및 수정]");
 	}
 
-	private void memberLogin() {
+	public void memberLogin() {
 		System.out.print("아이디를 입력해주세요 : ");
 		String id = sc.nextLine();
 		System.out.print("비밀번호를 입력해주세요 : ");
@@ -95,7 +144,7 @@ public class App {
 		}
 	}
 
-	private void memberSignup() {
+	public void memberSignup() {
 		System.out.print("아이디를 입력해주세요 : ");
 		String id = sc.nextLine();
 		System.out.print("비밀번호를 입력해주세요 : ");
@@ -112,7 +161,7 @@ public class App {
 		}
 	}
 
-	private void articleRead() {
+	public void articleRead() {
 		if (loginedMember == null) {
 			System.out.println("로그인이 필요한 기능입니다.");
 		} else {
@@ -125,8 +174,6 @@ public class App {
 				articleDao.hitArticle(aid);
 				ArrayList<Reply> replies = articleDao.getReplyByArticleId(article.getId());
 				PrintArticle(article, replies);
-				Article article2 = articleDao.getArticleById(article.getId());
-				System.out.println(article2.getHit());
 				while (true) {
 					System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 좋아요, 3. 수정, 4. 삭제, 5. 목록으로) : ");
 					int dcmd = Integer.parseInt(sc.nextLine());
@@ -157,7 +204,7 @@ public class App {
 
 	}
 
-	private void articleAdd() {
+	public void articleAdd() {
 		if (loginedMember == null) {
 			System.out.println("로그인이 필요한 기능입니다.");
 		} else {
@@ -170,13 +217,13 @@ public class App {
 		}
 	}
 
-	private void articleDelete() {
+	public void articleDelete() {
 		System.out.print("삭제할 게시물 번호 : ");
 		int aid = Integer.parseInt(sc.nextLine());
 		articleDao.deleteArticle(aid);
 	}
 
-	private void articleUpdate() {
+	public void articleUpdate() {
 		System.out.print("수정할 게시물 번호 : ");
 		int aid = Integer.parseInt(sc.nextLine());
 
@@ -187,12 +234,12 @@ public class App {
 		articleDao.updateArticle(title, body, aid);
 	}
 
-	private void articleList() {
+	public void articleList() {
 		ArrayList<Article> articles = articleDao.getArticles();
 
 		for (int i = 0; i < articles.size(); i++) {
 			Article article = articles.get(i);
-			
+
 			System.out.println("번호 : " + article.getId());
 			System.out.println("제목 : " + article.getTitle());
 			System.out.println("작성자 : " + article.getNickname());
@@ -202,7 +249,7 @@ public class App {
 
 	}
 
-	private void inputCommmand() {
+	public void inputCommmand() {
 		if (loginedMember == null) {
 			System.out.print("명령어를 입력해주세요 : ");
 		} else {
@@ -224,6 +271,19 @@ public class App {
 			System.out.println("내용 : " + replies.get(i).getBody());
 			System.out.println("작성자 : " + replies.get(i).getWriter());
 			System.out.println("------------------");
+		}
+	}
+	
+	public void printArticles(ArrayList<Article> articles) {
+		for (int i = 0; i < articles.size(); i++) {
+			Article article = articles.get(i);
+			
+			System.out.println("번호 : " + article.getId());
+			System.out.println("제목 : " + article.getTitle());
+			System.out.println("작성자 : " + article.getNickname());
+			System.out.println("등록날짜 : " + article.getRegDate());
+			System.out.println("조회수 : " + article.getHit());
+			System.out.println("=============================");
 		}
 	}
 }
