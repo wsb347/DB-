@@ -33,6 +33,11 @@ public class DBCode {
 //nickname CHAR(50)
 //);
 //
+//CREATE TABLE `like`(
+//aid INT(5),
+//MID INT(5),
+//regDate DATETIME
+//);
 //SHOW TABLES;
 
 

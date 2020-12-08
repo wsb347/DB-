@@ -5,7 +5,16 @@ public class Member {
 	private String id;
 	private String pw;
 	private String nickname;
-	
+	private String regDate;
+
+	public String getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+
 	public int getMid() {
 		return mid;
 	}
