@@ -50,9 +50,15 @@ public class App {
 	}
 
 	private void articleSort() {
+		System.out.print("정렬 대상을 선택해주세요. (like : 좋아요, hit : 조회수) : ");
 		String sortFlag = sc.nextLine();
+		System.out.println("정렬 방법을 선택해주세요. (asc : 오름차순, desc : 내림차순) : ");
 		String sortType = sc.nextLine();
 		
+		if(sortFlag.equals("like")) {
+			sortFlag = "`like`";
+		}
+
 		ArrayList<Article> sortedArticles = articleDao.getSortedArticles(sortFlag, sortType);
 
 		printArticles(sortedArticles);
@@ -93,24 +99,22 @@ public class App {
 //				PrintArticles(searchArticle);
 //			}
 //		}
-		
+
 		System.out.println("검색 할 항목을 선택해주세요");
 		System.out.println("(1. 제목, 2. 내용, 3. 제목 + 내용, 4. 작성자)");
 		int searchFlag = Integer.parseInt(sc.nextLine());
-		
+
 		System.out.print("검색 키워드를 입력해주세요 : ");
 		String keyword = sc.nextLine();
-		
+
 		ArrayList<Article> article = articleDao.SearchArticle(searchFlag, keyword);
-		if(article == null) {
+		if (article == null) {
 			System.out.println("해당 게시물이 없습니다.");
 		} else {
 			ArrayList<Article> searchArticle = articleDao.SearchArticle(searchFlag, keyword);
 			printArticles(searchArticle);
 		}
-		
 
-		
 	}
 
 	public void memberLogout() {
@@ -184,15 +188,22 @@ public class App {
 						ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
 						PrintArticle(article, replies2);
 					} else if (dcmd == 2) {
-//						if(loginedMember.getCheckNo() == 1) {
-//							loginedMember.setCheckNo(0);
-//							articleDao.MinusLikebyArticle(article.getId());
-//							System.out.println("좋아요" + article2.getLike());
-//						} else {
-//							loginedMember.setCheckNo(1);
-//							articleDao.PlusSetLikebyArticle(article.getId());
-//							System.out.println("좋아요" + article2.getLike());
-//						}
+						if(loginedMember.getCheckNo() == 1) {
+							loginedMember.setCheckNo(0);
+							articleDao.MinusLikebyArticle(article.getId());
+							ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
+							PrintArticle(article, replies2);
+						} else if(loginedMember.getCheckNo() == 0) {
+							loginedMember.setCheckNo(1);
+							articleDao.PlusSetLikebyArticle(article.getId());
+							ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
+							PrintArticle(article, replies2);
+						} else {
+							loginedMember.setCheckNo(1);
+							articleDao.PlusSetLikebyArticle(article.getId());
+							ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
+							PrintArticle(article, replies2);
+						}
 						break;
 					} else {
 						break;
@@ -220,7 +231,13 @@ public class App {
 	public void articleDelete() {
 		System.out.print("삭제할 게시물 번호 : ");
 		int aid = Integer.parseInt(sc.nextLine());
-		articleDao.deleteArticle(aid);
+
+		Article article = articleDao.getArticleById(aid);
+		if (article == null) {
+			System.out.println("없는 게시물입니다.");
+		} else {
+			articleDao.deleteArticle(aid);
+		}
 	}
 
 	public void articleUpdate() {
@@ -273,11 +290,11 @@ public class App {
 			System.out.println("------------------");
 		}
 	}
-	
+
 	public void printArticles(ArrayList<Article> articles) {
 		for (int i = 0; i < articles.size(); i++) {
 			Article article = articles.get(i);
-			
+
 			System.out.println("번호 : " + article.getId());
 			System.out.println("제목 : " + article.getTitle());
 			System.out.println("작성자 : " + article.getNickname());

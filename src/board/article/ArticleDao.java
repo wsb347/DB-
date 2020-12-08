@@ -9,6 +9,7 @@ public class ArticleDao {
 
 	private DBUtil2 db = new DBUtil2();
 	
+	
 	public ArrayList<Article> getArticles() {
 		String sql = "select * from article";
 		return db.getRows(sql, new ArticleRowMapper());
@@ -34,6 +35,11 @@ public class ArticleDao {
 		return db.getRow(sql, new ArticleRowMapper(), aid);
 	}
 	
+	public Article CheckIdArticle(int aid) {
+		String sql = "SELECT nickname FROM article WHERE id = ?";
+		return db.getRow(sql, new ArticleRowMapper(), aid);
+	}
+	
 	public int hitArticle(int aid) {
 		String sql = "UPDATE article SET hit = hit+1 WHERE id = ?";
 		return db.updateQuery(sql, aid);
@@ -54,15 +60,17 @@ public class ArticleDao {
 		String sql2 = "";
 		
 		if(searchFlag == 1) {
-			sql2 = "title LIKE CONCAT_WS(?,'%', '%')";
+			sql2 = "title LIKE CONCAT_WS(`?`,'%', '%')";
 		} else if(searchFlag == 2) {
-			sql2 = "SELECT * FROM article WHERE `body` LIKE CONCAT_WS(?,'%', '%')";
+			sql2 = "`body` LIKE CONCAT_WS(?,'%', '%')";
 		} else if(searchFlag == 3) {
-			sql2 = "SELECT * FROM article WHERE `body` OR title LIKE CONCAT_WS(?,'%', '%')";
+			sql2 = "`body` OR title LIKE CONCAT_WS(?,'%', '%')";
 		} else if(searchFlag == 4) {
 			sql2 = "nickname LIKE CONCAT_WS(?,'%', '%')";
 		}
-		return db.getRows(sql1+sql2, new ArticleRowMapper(), searchFlag, keyword);
+		
+		String sql = sql1 + sql2;
+		return db.getRows(sql, new ArticleRowMapper(), searchFlag, keyword);
 	}
 	
 //	public ArrayList<Article> SearchArticleByTitle(String keyword) {
@@ -91,11 +99,19 @@ public class ArticleDao {
 	}
 
 	public ArrayList<Article> getSortedArticles(String sortFlag, String sortType) {
-		String sql1 = "select * from article order by";
+		String sql1 = "select * from article order by ";
 		String sql2 = sortFlag + " " + sortType;
 		
 		String sql = sql1 + sql2;
 		return db.getRows(sql, new ArticleRowMapper());
+	}
+
+	public boolean isExistLike(int mid, String aid) {
+		String sql = "select * fromlike where mid = ? and aid = ?";
+		
+		db.getRow(sql, new LikeRowMapper(), mid, aid)
+				
+		return false;
 	}
 	
 		
