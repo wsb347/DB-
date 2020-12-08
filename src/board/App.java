@@ -66,6 +66,44 @@ public class App {
 	}
 
 	public void articleSearch() {
+<<<<<<< HEAD
+=======
+//		System.out.println("검색 할 항목을 선택해주세요");
+//		System.out.println("(1. 제목, 2. 내용, 3. 제목 + 내용, 4. 작성자)");
+//		int targetId = Integer.parseInt(sc.nextLine());
+//		if(targetId == 1) {
+//			System.out.print("검색 키워드를 입력해주세요 : ");
+//			String title = sc.nextLine();
+//			ArrayList<Article> article = articleDao.SearchArticleByTitle(title);
+//			if(article == null) {
+//				System.out.println("해당 게시물이 없습니다.");
+//			} else {
+//				ArrayList<Article> searchArticle = articleDao.SearchArticleByTitle(title);
+//				PrintArticles(searchArticle);
+//			}
+//		} else if(targetId == 2) {
+//			System.out.print("검색 키워드를 입력해주세요 : ");
+//			String body = sc.nextLine();
+//			ArrayList<Article> article = articleDao.SearchArticleByBody(body);
+//			if(article == null) {
+//				System.out.println("해당 게시물이 없습니다.");
+//			} else {
+//				ArrayList<Article> searchArticle = articleDao.SearchArticleByBody(body);
+//				PrintArticles(searchArticle);
+//			}
+//		} else if(targetId == 3) {
+//			System.out.print("검색 키워드를 입력해주세요 : ");
+//			String body = sc.nextLine();
+//			ArrayList<Article> article = articleDao.SearchArticleByBody(body);
+//			if(article == null) {
+//				System.out.println("해당 게시물이 없습니다.");
+//			} else {
+//				ArrayList<Article> searchArticle = articleDao.SearchArticleByBody(body);
+//				PrintArticles(searchArticle);
+//			}
+//		}
+
+>>>>>>> 1f590525ed100366c8b0ee705befcf756c679be8
 		System.out.println("검색 할 항목을 선택해주세요");
 		System.out.println("(1. 제목, 2. 내용, 3. 제목 + 내용, 4. 작성자)");
 		int searchFlag = Integer.parseInt(sc.nextLine());
@@ -154,6 +192,7 @@ public class App {
 						ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
 						PrintArticle(article, replies2);
 					} else if (dcmd == 2) {
+<<<<<<< HEAD
 						if(loginedMember == null) {
 							System.out.println("로그인이 필요한 기능입니다.");
 						} else {
@@ -177,6 +216,25 @@ public class App {
 							PrintArticle(article2, replies2);
 
 						}
+=======
+						if(loginedMember.getCheckNo() == 1) {
+							loginedMember.setCheckNo(0);
+							articleDao.MinusLikebyArticle(article.getId());
+							ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
+							PrintArticle(article, replies2);
+						} else if(loginedMember.getCheckNo() == 0) {
+							loginedMember.setCheckNo(1);
+							articleDao.PlusSetLikebyArticle(article.getId());
+							ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
+							PrintArticle(article, replies2);
+						} else {
+							loginedMember.setCheckNo(1);
+							articleDao.PlusSetLikebyArticle(article.getId());
+							ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
+							PrintArticle(article, replies2);
+						}
+						break;
+>>>>>>> 1f590525ed100366c8b0ee705befcf756c679be8
 					} else {
 						break;
 					}
@@ -241,7 +299,7 @@ public class App {
 
 		for (int i = 0; i < articles.size(); i++) {
 			Article article = articles.get(i);
-			
+
 			System.out.println("번호 : " + article.getId());
 			System.out.println("제목 : " + article.getTitle());
 			System.out.println("작성자 : " + article.getNickname());

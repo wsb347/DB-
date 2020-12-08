@@ -5,6 +5,7 @@ public class Like {
 	private int mid;
 	private String regDate;
 	
+<<<<<<< HEAD
 	public Like() {
 		
 	}
@@ -16,6 +17,8 @@ public class Like {
 		this.regDate = regDate;
 	}	
 	
+=======
+>>>>>>> 1f590525ed100366c8b0ee705befcf756c679be8
 	public int getAid() {
 		return aid;
 	}
@@ -24,7 +27,10 @@ public class Like {
 		this.aid = aid;
 	}
 	
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1f590525ed100366c8b0ee705befcf756c679be8
 	public int getMid() {
 		return mid;
 	}

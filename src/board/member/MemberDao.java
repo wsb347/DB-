@@ -8,7 +8,11 @@ public class MemberDao {
 	private DBUtil2 db = new DBUtil2();
 
 	public int insertMember(String id, String pw, String nickname) {
+<<<<<<< HEAD
 		String sql = "insert into member set id = ?, pw = ?, nickname = ?, regDate = NOW()";
+=======
+		String sql = "insert into member set id = ?, pw = ?, nickname = ?, checkNo = 0";
+>>>>>>> 1f590525ed100366c8b0ee705befcf756c679be8
 		return db.updateQuery(sql, id, pw, nickname);
 	}
 	
