@@ -38,6 +38,8 @@ public class App {
 				articleSort();
 			} else if (cmd.equals("article search")) {
 				articleSearch();
+			} else if (cmd.equals("article page")) {
+				articlePage();
 			} else if (cmd.equals("member signup")) {
 				memberSignup();
 			} else if (cmd.equals("member login")) {
@@ -50,13 +52,18 @@ public class App {
 		}
 	}
 
+	private void articlePage() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void articleSort() {
 		System.out.print("정렬 대상을 선택해주세요. (like : 좋아요, hit : 조회수) : ");
 		String sortFlag = sc.nextLine();
 		System.out.println("정렬 방법을 선택해주세요. (asc : 오름차순, desc : 내림차순) : ");
 		String sortType = sc.nextLine();
-		
-		if(sortFlag.equals("like")) {
+
+		if (sortFlag.equals("like")) {
 			sortFlag = "`like`";
 		}
 
@@ -66,8 +73,7 @@ public class App {
 	}
 
 	public void articleSearch() {
-<<<<<<< HEAD
-=======
+
 //		System.out.println("검색 할 항목을 선택해주세요");
 //		System.out.println("(1. 제목, 2. 내용, 3. 제목 + 내용, 4. 작성자)");
 //		int targetId = Integer.parseInt(sc.nextLine());
@@ -103,7 +109,6 @@ public class App {
 //			}
 //		}
 
->>>>>>> 1f590525ed100366c8b0ee705befcf756c679be8
 		System.out.println("검색 할 항목을 선택해주세요");
 		System.out.println("(1. 제목, 2. 내용, 3. 제목 + 내용, 4. 작성자)");
 		int searchFlag = Integer.parseInt(sc.nextLine());
@@ -192,13 +197,13 @@ public class App {
 						ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
 						PrintArticle(article, replies2);
 					} else if (dcmd == 2) {
-<<<<<<< HEAD
-						if(loginedMember == null) {
+
+						if (loginedMember == null) {
 							System.out.println("로그인이 필요한 기능입니다.");
 						} else {
 							Like like = articleDao.getLike(article.getId(), loginedMember.getMid());
 
-							if(like != null) {
+							if (like != null) {
 								System.out.println("좋아요를 해제했습니다.");
 								articleDao.MinusLikebyArticle(article.getId(), loginedMember.getMid());
 								articleDao.deleteLike(article.getId(), loginedMember.getMid());
@@ -210,31 +215,13 @@ public class App {
 							}
 
 							Article article2 = articleDao.getArticleById(article.getId());
-							
+
 							ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
 
 							PrintArticle(article2, replies2);
 
 						}
-=======
-						if(loginedMember.getCheckNo() == 1) {
-							loginedMember.setCheckNo(0);
-							articleDao.MinusLikebyArticle(article.getId());
-							ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
-							PrintArticle(article, replies2);
-						} else if(loginedMember.getCheckNo() == 0) {
-							loginedMember.setCheckNo(1);
-							articleDao.PlusSetLikebyArticle(article.getId());
-							ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
-							PrintArticle(article, replies2);
-						} else {
-							loginedMember.setCheckNo(1);
-							articleDao.PlusSetLikebyArticle(article.getId());
-							ArrayList<Reply> replies2 = articleDao.getReplyByArticleId(article.getId());
-							PrintArticle(article, replies2);
-						}
-						break;
->>>>>>> 1f590525ed100366c8b0ee705befcf756c679be8
+
 					} else {
 						break;
 					}
@@ -244,7 +231,7 @@ public class App {
 		}
 
 	}
-	
+
 	public void getArticleLike() {
 		ArrayList<Like> likes = articleDao.getLikeByArticle();
 
@@ -307,6 +294,23 @@ public class App {
 			System.out.println("----------------------------------");
 		}
 
+		int currentPage = 2;
+		int pageCountInBlock = 5;
+		int articleCountPerPage = 3;
+		int currentPageBlock = (int)Math.ceil((double)currentPage/pageCountInBlock); //올림
+		System.out.println(currentPageBlock);
+		int startNoInCurrentPageBlock = pageCountInBlock * (currentPageBlock - 1) + 1;
+		int endNoInCurrentPageBlock = startNoInCurrentPageBlock + pageCountInBlock -1;
+		
+		
+		for(int i = startNoInCurrentPageBlock; i <= endNoInCurrentPageBlock; i++) {
+			if(i == currentPage) {
+				System.out.print("[" + i + "] ");				
+			} else {
+				System.out.print(i + " ");	
+			}
+		}
+		System.out.println();
 	}
 
 	public void inputCommmand() {
@@ -345,5 +349,6 @@ public class App {
 			System.out.println("조회수 : " + article.getHit());
 			System.out.println("=============================");
 		}
+		
 	}
 }
