@@ -30,7 +30,9 @@ public class DBCode {
 //`mid` INT(5) PRIMARY KEY AUTO_INCREMENT,
 //id CHAR(50),
 //pw CHAR(50),
-//nickname CHAR(50)
+//nickname CHAR(50),
+//regDate DATETIME,
+//checkNo INT(5)
 //);
 //
 //CREATE TABLE `like`(

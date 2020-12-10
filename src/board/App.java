@@ -46,10 +46,26 @@ public class App {
 				memberLogin();
 			} else if (cmd.equals("member logout")) {
 				memberLogout();
+			} else if (cmd.equals("member findpass")) {
+				memberFindpass();
 			} else if (cmd.equals("help")) {
 				cmdHelp();
 			}
 		}
+	}
+
+	private void memberFindpass() {
+		System.out.print("아이디를 입력해주세요 : ");
+		String id = sc.nextLine();
+		
+		Member member = memberDao.GetMemberByPw(id);
+		
+		if(member != null) {
+			System.out.println("비밀번호는 " + member.getPw() + " 입니다.");
+		} else {
+			System.out.println("일치하는 아이디가 존재하지 않습니다.");
+		}
+		
 	}
 
 	private void articlePage() {
@@ -128,12 +144,13 @@ public class App {
 
 	public void memberLogout() {
 		loginedMember = null;
+		System.out.println("로그아웃 되었습니다.");
 	}
 
 	public void cmdHelp() {
 		System.out.println("article [add: 게시물 추가 / list : 게시물 목록 조회 /\nread : 게시물 조회 / search : 검색]");
 		System.out.println(
-				"member [signup : 회원가입 / signin : 로그인 /\nfindpass : 비밀번호 찾기 / findid : 아이디 찾기 /\nlogout : 로그아웃 / myinfo : 나의 정보 확인및 수정]");
+				"member [signup : 회원가입 / signin : 로그인 /\nfindpass : 비밀번호 찾기 /logout : 로그아웃 /\nmyinfo : 나의 정보 확인 및 수정]");
 	}
 
 	public void memberLogin() {
@@ -294,23 +311,23 @@ public class App {
 			System.out.println("----------------------------------");
 		}
 
-		int currentPage = 2;
-		int pageCountInBlock = 5;
-		int articleCountPerPage = 3;
-		int currentPageBlock = (int)Math.ceil((double)currentPage/pageCountInBlock); //올림
-		System.out.println(currentPageBlock);
-		int startNoInCurrentPageBlock = pageCountInBlock * (currentPageBlock - 1) + 1;
-		int endNoInCurrentPageBlock = startNoInCurrentPageBlock + pageCountInBlock -1;
-		
-		
-		for(int i = startNoInCurrentPageBlock; i <= endNoInCurrentPageBlock; i++) {
-			if(i == currentPage) {
-				System.out.print("[" + i + "] ");				
-			} else {
-				System.out.print(i + " ");	
-			}
-		}
-		System.out.println();
+//		int currentPage = 2;
+//		int pageCountInBlock = 5;
+//		int articleCountPerPage = 3;
+//		int currentPageBlock = (int)Math.ceil((double)currentPage/pageCountInBlock); //올림
+//		System.out.println(currentPageBlock);
+//		int startNoInCurrentPageBlock = pageCountInBlock * (currentPageBlock - 1) + 1;
+//		int endNoInCurrentPageBlock = startNoInCurrentPageBlock + pageCountInBlock -1;
+//		
+//		
+//		for(int i = startNoInCurrentPageBlock; i <= endNoInCurrentPageBlock; i++) {
+//			if(i == currentPage) {
+//				System.out.print("[" + i + "] ");				
+//			} else {
+//				System.out.print(i + " ");	
+//			}
+//		}
+//		System.out.println();
 	}
 
 	public void inputCommmand() {

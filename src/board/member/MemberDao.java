@@ -9,7 +9,7 @@ public class MemberDao {
 
 	public int insertMember(String id, String pw, String nickname) {
 
-		String sql = "insert into member set id = ?, pw = ?, nickname = ?, checkNo = 0";
+		String sql = "insert into member set id = ?, pw = ?, nickname = ?, checkNo = 0, regDate = NOW()";
 
 		return db.updateQuery(sql, id, pw, nickname);
 	}
@@ -32,5 +32,10 @@ public class MemberDao {
 	public ArrayList<Member> getReplyByLogin(String id) {
 		String sql = "select * from member where id = ?";
 		return db.getRows(sql, new MemberRowMapper(), id);
+	}
+	
+	public Member GetMemberByPw(String id) {
+		String sql = "SELECT * FROM `member` WHERE id = ?";
+		return db.getRow(sql, new MemberRowMapper(), id);
 	}
 }
