@@ -48,29 +48,59 @@ public class App {
 				memberLogout();
 			} else if (cmd.equals("member findpass")) {
 				memberFindpass();
+			} else if (cmd.equals("member myinfo")) {
+				memberMyinfo();
 			} else if (cmd.equals("help")) {
 				cmdHelp();
 			}
 		}
 	}
 
+	private void memberMyinfo() {
+		if (loginedMember == null) {
+			System.out.println("로그인이 필요한 기능입니다.");
+		} else {
+			System.out.println("아이디 : " + loginedMember.getId());
+			System.out.println("비밀번호 : " + loginedMember.getPw());
+			System.out.println("닉네임 : " + loginedMember.getNickname());
+			System.out.println("생성일자 : " + loginedMember.getRegDate());
+			
+			System.out.println("정보를 변경하시겠습니까? (1. 비밀번호 2. 닉네임 3. 변경안함)");
+			int flag = Integer.parseInt(sc.nextLine());
+			if(flag == 1) {
+				System.out.println("비밀번호를 입력해주세요");
+				String keyword = sc.nextLine();
+				memberDao.UpdateMemberinfo(flag, keyword, loginedMember.getId());
+			} else if (flag == 2){
+				System.out.println("닉네임을 입력해주세요");
+				String keyword = sc.nextLine();
+				memberDao.UpdateMemberinfo(flag, keyword, loginedMember.getId());
+			} else {
+				
+			}
+			
+			
+			
+		}
+	}
+
 	private void memberFindpass() {
 		System.out.print("아이디를 입력해주세요 : ");
 		String id = sc.nextLine();
-		
+
 		Member member = memberDao.GetMemberByPw(id);
-		
-		if(member != null) {
+
+		if (member != null) {
 			System.out.println("비밀번호는 " + member.getPw() + " 입니다.");
 		} else {
 			System.out.println("일치하는 아이디가 존재하지 않습니다.");
 		}
-		
+
 	}
 
 	private void articlePage() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private void articleSort() {
@@ -89,42 +119,6 @@ public class App {
 	}
 
 	public void articleSearch() {
-
-//		System.out.println("검색 할 항목을 선택해주세요");
-//		System.out.println("(1. 제목, 2. 내용, 3. 제목 + 내용, 4. 작성자)");
-//		int targetId = Integer.parseInt(sc.nextLine());
-//		if(targetId == 1) {
-//			System.out.print("검색 키워드를 입력해주세요 : ");
-//			String title = sc.nextLine();
-//			ArrayList<Article> article = articleDao.SearchArticleByTitle(title);
-//			if(article == null) {
-//				System.out.println("해당 게시물이 없습니다.");
-//			} else {
-//				ArrayList<Article> searchArticle = articleDao.SearchArticleByTitle(title);
-//				PrintArticles(searchArticle);
-//			}
-//		} else if(targetId == 2) {
-//			System.out.print("검색 키워드를 입력해주세요 : ");
-//			String body = sc.nextLine();
-//			ArrayList<Article> article = articleDao.SearchArticleByBody(body);
-//			if(article == null) {
-//				System.out.println("해당 게시물이 없습니다.");
-//			} else {
-//				ArrayList<Article> searchArticle = articleDao.SearchArticleByBody(body);
-//				PrintArticles(searchArticle);
-//			}
-//		} else if(targetId == 3) {
-//			System.out.print("검색 키워드를 입력해주세요 : ");
-//			String body = sc.nextLine();
-//			ArrayList<Article> article = articleDao.SearchArticleByBody(body);
-//			if(article == null) {
-//				System.out.println("해당 게시물이 없습니다.");
-//			} else {
-//				ArrayList<Article> searchArticle = articleDao.SearchArticleByBody(body);
-//				PrintArticles(searchArticle);
-//			}
-//		}
-
 		System.out.println("검색 할 항목을 선택해주세요");
 		System.out.println("(1. 제목, 2. 내용, 3. 제목 + 내용, 4. 작성자)");
 		int searchFlag = Integer.parseInt(sc.nextLine());
@@ -366,6 +360,6 @@ public class App {
 			System.out.println("조회수 : " + article.getHit());
 			System.out.println("=============================");
 		}
-		
+
 	}
 }

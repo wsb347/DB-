@@ -15,15 +15,15 @@ public class DBUtil2 {
 	// dbms 주소p
 	String url = "jdbc:mysql://localhost:3306/t1?serverTimezone=UTC";
 
-//	// 사용자 계정
-//	String user = "root";
-//	// 사용자 비밀번호
-//	String pass = "";
-
 	// 사용자 계정
-	String user = "sbsst";
+	String user = "root";
 	// 사용자 비밀번호
-	String pass = "sbs123414";
+	String pass = "";
+
+//	// 사용자 계정
+//	String user = "sbsst";
+//	// 사용자 비밀번호
+//	String pass = "sbs123414";
 
 	Connection conn = null;
 
