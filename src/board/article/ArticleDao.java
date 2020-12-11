@@ -72,21 +72,7 @@ public class ArticleDao {
 		String sql = sql1 + sql2;
 		return db.getRows(sql, new ArticleRowMapper(), keyword);
 	}
-	
-//	public ArrayList<Article> SearchArticleByTitle(String keyword) {
-//		String sql = "SELECT * FROM article WHERE title LIKE CONCAT_WS(?,'%', '%')";
-//		return db.getRows(sql, new ArticleRowMapper(), keyword);
-//	}
-//	
-//	public ArrayList<Article> SearchArticleByBody(String keyword) {
-//		String sql = "SELECT * FROM article WHERE `body` LIKE CONCAT_WS(?,'%', '%')";
-//		return db.getRows(sql, new ArticleRowMapper(), keyword);
-//	}
-//	
-//	public ArrayList<Article> SearchArticleByTitleAndBody(String keyword) {
-//		String sql = "SELECT * FROM article WHERE `body` OR title LIKE CONCAT_WS(?,'%', '%')";
-//		return db.getRows(sql, new ArticleRowMapper(), keyword);
-//	}
+
 
 	public int insertReply(int aid, String body, String writer) {
 		String sql = "insert into reply set aid = ?, `body` = ?, writer = ?, regDate = NOW()";

@@ -8,9 +8,7 @@ public class MemberDao {
 	private DBUtil2 db = new DBUtil2();
 
 	public int insertMember(String id, String pw, String nickname) {
-
 		String sql = "insert into member set id = ?, pw = ?, nickname = ?, checkNo = 0, regDate = NOW()";
-
 		return db.updateQuery(sql, id, pw, nickname);
 	}
 	
@@ -38,4 +36,19 @@ public class MemberDao {
 		String sql = "SELECT * FROM `member` WHERE id = ?";
 		return db.getRow(sql, new MemberRowMapper(), id);
 	}
+	
+	public int UpdateMemberinfo(int flag, String keyword, String loginId) {
+		String sql1 = "UPDATE `member`";
+		String sql2 = "";
+		
+		if(flag == 1) {
+			sql2 = "SET pw = ? WHERE id = ?";
+		} else if(flag == 2) {
+			sql2 = "SET nickname = ? WHERE id = ?";
+		}
+		
+		String sql = sql1 + sql2;
+		return db.updateQuery(sql, keyword, loginId);
+	}
+	
 }
