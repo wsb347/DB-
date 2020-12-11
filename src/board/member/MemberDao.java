@@ -51,4 +51,8 @@ public class MemberDao {
 		return db.updateQuery(sql, keyword, loginId);
 	}
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> d05bb1c832e66f729624a631bc8b151a1c0a0f89
 }

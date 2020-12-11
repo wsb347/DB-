@@ -57,6 +57,7 @@ public class App {
 	}
 
 	private void memberMyinfo() {
+<<<<<<< HEAD
 		
 		
 		if (loginedMember == null) {
@@ -66,6 +67,15 @@ public class App {
 			System.out.println("비밀번호 : " + memberDao.GetMemberByPw(loginedMember.getId()).getPw());
 			System.out.println("닉네임 : " + memberDao.GetMemberByPw(loginedMember.getId()).getNickname());
 			System.out.println("생성일자 : " + memberDao.GetMemberByPw(loginedMember.getId()).getRegDate());
+=======
+		if (loginedMember == null) {
+			System.out.println("로그인이 필요한 기능입니다.");
+		} else {
+			System.out.println("아이디 : " + loginedMember.getId());
+			System.out.println("비밀번호 : " + loginedMember.getPw());
+			System.out.println("닉네임 : " + loginedMember.getNickname());
+			System.out.println("생성일자 : " + loginedMember.getRegDate());
+>>>>>>> d05bb1c832e66f729624a631bc8b151a1c0a0f89
 			
 			System.out.println("정보를 변경하시겠습니까? (1. 비밀번호 2. 닉네임 3. 변경안함)");
 			int flag = Integer.parseInt(sc.nextLine());
@@ -101,6 +111,7 @@ public class App {
 	}
 
 	private void articlePage() {
+<<<<<<< HEAD
 		articleList();
 
 //		int currentPage = 2;
@@ -120,6 +131,10 @@ public class App {
 //			}
 //		}
 //		System.out.println();
+=======
+		// TODO Auto-generated method stub
+
+>>>>>>> d05bb1c832e66f729624a631bc8b151a1c0a0f89
 	}
 
 	private void articleSort() {
